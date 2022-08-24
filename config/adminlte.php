@@ -281,7 +281,7 @@ return [
         ['header' => 'GESTÃO FINANCEIRA'],
         [
             'text'    => 'Cadastros',
-            'icon'    => 'fas fa-fw fa-plus',
+            'icon'    => 'fas fa-fw fas fa-edit',
             'submenu' => [
                 [
                     'text'    => 'Plano de contas',
