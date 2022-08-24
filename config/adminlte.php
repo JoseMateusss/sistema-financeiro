@@ -289,7 +289,7 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Categorias',
-                            'url'  => '#',
+                            'url'  => '/category',
                         ],
                         [
                             'text' => 'Subcategorias',
