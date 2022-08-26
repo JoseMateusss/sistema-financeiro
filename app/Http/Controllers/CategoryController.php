@@ -56,4 +56,28 @@ class CategoryController extends Controller
             return back()->withInput();
         }
     }
+
+    public function edit(Category $category)
+    {
+        return view('category.edit', ['category' => $category]);
+    }
+
+    public function update(Request $request, Category $category, FlasherInterface $flasher)
+    {
+        $status = 0;
+        
+        if($request->input('status')){
+            $status = 1;
+        }
+
+        $category->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'status' => $status
+        ]);
+
+        $flasher->addSuccess('Categoria atualizada', 'Sucesso');
+
+        return back();
+    }
 }

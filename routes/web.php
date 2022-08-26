@@ -24,10 +24,6 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('categories')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
-    Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
-});
+Route::resource('/categories', CategoryController::class);
 
 

@@ -12,7 +12,7 @@
         <h1 class="m-0 text-dark">Categorias</h1>
     </div>
     <div class="col-2">
-        <a href="{{ route('category.create') }}" class="btn btn-block btn-success">Nova Categoria</a>
+        <a href="{{ route('categories.create') }}" class="btn btn-block btn-success">Nova Categoria</a>
     </div>
 </div>
 @stop
@@ -58,7 +58,7 @@
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: "{{route('category.index')}}",
+            ajax: "{{route('categories.index')}}",
             dataType: 'json',
             type: "POST",
             columns: [{
