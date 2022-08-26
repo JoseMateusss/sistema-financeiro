@@ -53,12 +53,41 @@
 <script src="//adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="//adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
-
     $(function () {
         $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["csv", "excel", "pdf", {extend: 'colvis',text: 'Visibilidade das colunas'} ]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: "{{route('category.index')}}",
+            dataType: 'json',
+            type: "POST",
+            columns: [{
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'description',
+                    name: 'description',
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at',
+                },
+                {
+                    data: 'actions',
+                    name: 'actions',
+                    searchable: false,
+                    orderable: false
+                }
+            ],
+        });
     });
-</script>
+        
+    </script>
 @stop
