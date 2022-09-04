@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'K&M Finanças',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>K&M</b> FINANÇAS',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -274,11 +274,11 @@ return [
 
         // Sidebar items:
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Dashboard',
+            'icon' => 'fas fa-fw fa-chart-line',//<i class=""></i>
+            'url'  => '/home'
         ],
-        ['header' => 'GESTÃO FINANCEIRA'],
+
         [
             'text'    => 'Cadastros',
             'icon'    => 'fas fa-fw fas fa-edit',
@@ -290,16 +290,33 @@ return [
                         [
                             'text' => 'Categorias',
                             'url'  => '/categories',
+                            'can'  => 'Ver Categorias',
                         ],
                         [
                             'text' => 'Subcategorias',
                             'url'  => '#',
                         ],
-                       
+
                     ],
                 ],
             ],
         ],
+
+        [
+            'text'    => 'Configurações',
+            'icon'    => 'fas fa-fw fas fa-user-cog', //<i class="fas fa-user-cog"></i>
+            'submenu' => [
+                [
+                    'text'    => 'Empresas',
+                    'url'     => '/companies',
+                ],
+                [
+                    'text'    => 'Usuários',
+                    'url'     => '/users',
+                ],
+            ],
+        ],
+
     ],
 
     /*
@@ -368,7 +385,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

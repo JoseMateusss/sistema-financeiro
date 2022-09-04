@@ -12,7 +12,9 @@
         <h1 class="m-0 text-dark">Categorias</h1>
     </div>
     <div class="col-2">
-        <a href="{{ route('categories.create') }}" class="btn btn-block btn-success">Nova Categoria</a>
+        @can('Criar Categoria')
+            <a href="{{ route('categories.create') }}" class="btn btn-block btn-success">Nova Categoria</a>
+        @endcan
     </div>
 </div>
 @stop
@@ -29,11 +31,12 @@
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="">Descrição</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="">Status</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="">Data de criação</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="">Ação</th>
+
+                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -88,6 +91,6 @@
             ],
         });
     });
-        
+
     </script>
 @stop

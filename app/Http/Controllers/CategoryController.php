@@ -10,6 +10,13 @@ use App\Http\Requests\Category\CategoryRequest;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:Ver Categorias')->only('index');
+        $this->middleware('can:Criar Categoria')->only('create', 'story');
+        $this->middleware('can:Editar Categorias')->only('edit', 'update');
+        $this->middleware('can:Deletar Categorias')->only('delete');
+    }
     public function index(Request $request)
     {
         if($request->ajax()){
@@ -19,11 +26,11 @@ class CategoryController extends Controller
                 return $category->created_at->format('d/m/Y');
             })
             ->editColumn('status', function ($category) {
-                return $category->status ? 'ATIVA' : 'INATIVA'; 
+                return $category->status ? '<span class="badge bg-success">Ativa</span>' : '<span class="badge bg-warning">Inativa</span>';
             })
             ->addColumn('actions', 'category.action')
-            ->rawColumns(['actions'])
-            ->make(true); 
+            ->rawColumns(['actions', 'status'])
+            ->make(true);
         }
         return view('category.index');
     }
@@ -36,11 +43,11 @@ class CategoryController extends Controller
     public function store(CategoryRequest $CategoryRequest,  FlasherInterface $flasher)
     {
         $status = 0;
-        
+
         if($CategoryRequest->input('status')){
             $status = 1;
         }
-        
+
         try {
             Category::create([
                 'name' => $CategoryRequest->input('name'),
@@ -50,7 +57,7 @@ class CategoryController extends Controller
             $flasher->addSuccess('Nova categoria adicionada', 'Sucesso');
 
             return redirect()->route('category.index');
-        
+
         } catch (\Throwable $th) {
             $flasher->addError('Ocorreu um error', 'Erro');
             return back()->withInput();
@@ -65,7 +72,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category, FlasherInterface $flasher)
     {
         $status = 0;
-        
+
         if($request->input('status')){
             $status = 1;
         }
