@@ -10,4 +10,9 @@ class Company extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'cnpj'];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -12,7 +12,7 @@
         <h1 class="m-0 text-dark">Categorias</h1>
     </div>
     <div class="col-2">
-        @can('Criar Categoria')
+        @can('Criar Categorias')
             <a href="{{ route('categories.create') }}" class="btn btn-block btn-success">Nova Categoria</a>
         @endcan
     </div>
@@ -46,15 +46,6 @@
 @stop
 
 @section('js')
-
-<script src="//adminlte.io/themes/v3/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="//adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="//adminlte.io/themes/v3/plugins/jszip/jszip.min.js"></script>
-<script src="//adminlte.io/themes/v3/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="//adminlte.io/themes/v3/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="//adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="//adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="//adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
     $(function () {
         $("#example1").DataTable({
@@ -92,5 +83,5 @@
         });
     });
 
-    </script>
+</script>
 @stop

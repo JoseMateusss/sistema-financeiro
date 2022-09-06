@@ -33,7 +33,7 @@
                             <p>Fornecedores</p>
                         </div>
                         <div class="icon">
-                            <i class="far fa-fw fa-sticky-note"></i>
+                            <i class="fa fa-suitcase"></i>
                         </div>
                     </div>
                 </div>

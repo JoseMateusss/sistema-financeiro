@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Empresas')
+@section('title', 'Usuários')
 
 @section('css')
 <link rel="stylesheet" href="//adminlte.io/themes/v3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -28,6 +28,7 @@
                             <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" aria-sort="ascending">Nome</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="">E-mail</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="">Grupo de acesso</th>
+                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="">Data de criação</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="">Ação</th>
                         </tr>
                     </thead>
@@ -39,4 +40,43 @@
         </div>
     </div>
 </div>
+@stop
+
+@section('js')
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: "{{route('users.index')}}",
+            dataType: 'json',
+            type: "POST",
+            columns: [{
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'email',
+                    name: 'email',
+                },
+                {
+                    data: 'role',
+                    name: 'role',
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at',
+                },
+                {
+                    data: 'actions',
+                    name: 'actions',
+                    searchable: false,
+                    orderable: false
+                }
+            ],
+        });
+    });
+
+</script>
 @stop

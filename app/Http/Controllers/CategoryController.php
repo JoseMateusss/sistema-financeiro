@@ -28,7 +28,7 @@ class CategoryController extends Controller
             ->editColumn('status', function ($category) {
                 return $category->status ? '<span class="badge bg-success">Ativa</span>' : '<span class="badge bg-warning">Inativa</span>';
             })
-            ->addColumn('actions', 'category.action')
+            ->addColumn('actions', 'category.dataTable.action')
             ->rawColumns(['actions', 'status'])
             ->make(true);
         }

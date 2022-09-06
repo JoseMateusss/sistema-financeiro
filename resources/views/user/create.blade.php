@@ -63,7 +63,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="password">Senha</label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="E-mail do usuário" autocomplete="off">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Senha de acesso" autocomplete="off">
                                     @error('password')
                                         <span id="exampleInputEmail1-error" class="error invalid-feedback">{{$message}}</span>
                                     @enderror
@@ -72,7 +72,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="password_confirmation">Confirmar senha</label>
-                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Senha de acesso">
+                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Confirmar senha de acesso">
                                     @error('password_confirmation')
                                         <span id="exampleInputEmail1-error" class="error invalid-feedback">{{$message}}</span>
                                     @enderror
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="submit" class="btn btn-primary text-uppercase">Adicionar</button>
                     </div>
                     </form>
             </div>

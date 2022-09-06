@@ -276,7 +276,7 @@ return [
         [
             'text' => 'Dashboard',
             'icon' => 'fas fa-fw fa-chart-line',//<i class=""></i>
-            'url'  => '/home'
+            'url'  => '/'
         ],
 
         [

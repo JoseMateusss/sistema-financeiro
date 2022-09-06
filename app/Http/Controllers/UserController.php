@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\UserRequest;
+use App\Models\User;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Flasher\Prime\FlasherInterface;
+use App\Http\Requests\User\UserRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -14,8 +17,21 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax()){
+            $users = User::all();
+            return DataTables::of($users)
+            ->editColumn('created_at', function ($user) {
+                return $user->created_at->format('d/m/Y');
+            })
+            ->editColumn('role', function ($user) {
+                return $user->roles->first()->name;
+            })
+            ->addColumn('actions', 'user.dataTable.action')
+            ->rawColumns(['actions'])
+            ->make(true);
+        }
         return view('user.index');
     }
 
@@ -37,9 +53,19 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $userRequest)
+    public function store(UserRequest $userRequest, FlasherInterface $flasher)
     {
-        dd($userRequest->all());
+        try {
+            $user = User::create($userRequest->all());
+            $user->companies()->sync($userRequest->input('companies'));
+            $user->roles()->attach($userRequest->input('role'));
+
+            $flasher->addSuccess('Usuário adicionado', 'Sucesso');
+            return redirect()->route('users.index');
+        } catch (\Throwable $th) {
+            $flasher->addError('Erro ao adicionar usuário', 'Erro');
+            return redirect()->back();
+        }
     }
 
     /**
