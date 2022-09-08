@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\User;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Flasher\Prime\FlasherInterface;
 use App\Http\Requests\User\UserRequest;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\User\UpdateRequest;
 
 class UserController extends Controller
 {
@@ -85,9 +88,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $companies = Company::all('id', 'name');
+        $roles = Role::all('id', 'name');
+        return view('user.edit', [
+            'user' => $user,
+            'companies' => $companies,
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -97,9 +106,42 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $updateRequest, User $user, FlasherInterface $flasher)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $user->update([
+                'name' => $updateRequest->input('name'),
+                'email' => $updateRequest->input('email')
+            ]);
+            $user->companies()->sync($updateRequest->input('companies'));
+            $user->roles()->sync($updateRequest->input('role'));
+
+            $flasher->addSuccess('Informações alteradas', 'Sucesso');
+            DB::commit();
+
+            return redirect()->route('users.edit', ['user' => $user->id]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $flasher->addError('Erro ao tentar alterar as informações', 'Erro');
+
+            return redirect()->back();
+        }
+    }
+
+    public function changePassword(UpdatePasswordRequest $request, User $user, FlasherInterface $flasher)
+    {
+        try {
+            $user->update([
+                'password' => $request->input('password')
+            ]);
+
+            $flasher->addSuccess('Senha alterada', 'Sucesso');
+            return redirect()->route('users.edit', ['user' => $user->id]);
+        } catch (\Throwable $th) {
+            $flasher->addError('Error ao alterar senha', 'Erro');
+            return redirect()->back();
+        }
     }
 
     /**

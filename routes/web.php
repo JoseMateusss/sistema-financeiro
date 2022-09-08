@@ -24,6 +24,7 @@ Auth::routes();
 
 
 Route::resource('/users', UserController::class);
+Route::patch('/users{user}', [UserController::class, 'changePassword'])->name('users.changepassword');
 Route::resource('/categories', CategoryController::class);
 Route::resource('/companies', CompanyController::class);
 
