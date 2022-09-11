@@ -1,8 +1,10 @@
 import './bootstrap';
-import Alpine from 'alpinejs'
+import Alpine from 'alpinejs';
 
-window.Alpine = Alpine
+import flasher from "@flasher/flasher";
+window.flasher = flasher; // only if you want to use it globally
 
-import './../../vendor/power-components/livewire-powergrid/dist/powergrid'
+window.Alpine = Alpine;
+
 
 Alpine.start()

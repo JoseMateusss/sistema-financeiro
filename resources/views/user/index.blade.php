@@ -34,7 +34,7 @@
                                     style="">Grupo de acesso</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                     style="">Data de criação</th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                     style="">Ação</th>
                             </tr>
                         </thead>
@@ -51,7 +51,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Excluir usuário</h4>
+                    <h4 class="modal-title">Remover usuário</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -59,13 +59,14 @@
                 <form>
                     @csrf
                     <div class="modal-body">
-                        <h5>Você tem certeza que deseja excluir esse usuário?</h5>
+                        <h5>Você tem certeza que deseja remover <b><span id="user_name"></span></b>?</h5>
+                        <p>O usuário será desativado do sistema, o cadastro ainda será mantido</p>
                         <input type="hidden" name="user_id" id="user_id">
 
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="" onclick="deleterUserModal()" class="btn btn-danger">Excluir</button>
+                        <button type="" onclick="deleterUserModal()" class="btn btn-danger">Remover</button>
                     </div>
                 </form>
             </div>
@@ -112,9 +113,10 @@
         });
 
 
-        function teste(e) {
+        function teste(id, name) {
             event.preventDefault();
-            $('#user_id').val(e);
+            $('#user_id').val(id);
+            $('#user_name').text(name);
             $('#modal-default').modal('show');
         }
 
@@ -130,9 +132,11 @@
                 success:function(responser){
                     $('#example1').DataTable().ajax.reload();
                     $('#modal-default').modal('hide');
+                    flasher.success("Usuário removido com sucesso!", "Sucesso");
                 },
                 error: function(responser){
-                    alert('error');
+                    $('#modal-default').modal('hide');
+                    flasher.error("Erro ao tentar remover usuário!", "Erro");
                 }
             });
         }
