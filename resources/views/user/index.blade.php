@@ -22,7 +22,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body" id="example1_wrapper">
-                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
+                    <table id="table_user" class="table table-bordered table-striped dataTable dtr-inline"
                         aria-describedby="example1_info">
                         <thead>
                             <tr>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="" onclick="deleterUserModal()" class="btn btn-danger">Remover</button>
+                        <button type="" onclick="deleteUser()" class="btn btn-danger">Remover</button>
                     </div>
                 </form>
             </div>
@@ -79,7 +79,7 @@
 @section('js')
     <script>
         $(function() {
-            $("#example1").DataTable({
+            $("#table_user").DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -112,15 +112,14 @@
             });
         });
 
-
-        function teste(id, name) {
+        function deleteUserModal(id, name) {
             event.preventDefault();
             $('#user_id').val(id);
             $('#user_name').text(name);
             $('#modal-default').modal('show');
         }
 
-        function deleterUserModal(){
+        function deleteUser(){
             event.preventDefault();
             var id = $('input[name=user_id]').val()
             $.ajax({
@@ -130,7 +129,7 @@
                     _token: $('input[name=_token]').val()
                 },
                 success:function(responser){
-                    $('#example1').DataTable().ajax.reload();
+                    $('#table_user').DataTable().ajax.reload();
                     $('#modal-default').modal('hide');
                     flasher.success("Usuário removido com sucesso!", "Sucesso");
                 },

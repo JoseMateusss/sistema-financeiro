@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Criar categoria')
 
 @section('content_header')
     <div class="d-flex">
@@ -24,16 +24,27 @@
                     <form action="{{ route('categories.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
+                            <label for="company_id">Empresa</label>
+                            <select class="form-control select2 select2-hidden-accessible @error('company_id') is-invalid @enderror" name="company_id" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                @foreach ($companies as $company )
+                                    <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('company_id')
+                                <span id="exampleInputEmail1-error" class="error invalid-feedback">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="name">Nome</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{old('name')}}" placeholder="Nome da categoria">
-                            @error('name') 
+                            @error('name')
                                 <span id="exampleInputEmail1-error" class="error invalid-feedback">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="description">Descrição</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3" placeholder="Descrição ...">{{ old('description') }}</textarea>
-                            @error('description') 
+                            @error('description')
                                 <span id="exampleInputEmail1-error" class="error invalid-feedback">{{$message}}</span>
                             @enderror
                         </div>
@@ -45,10 +56,17 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Criar Categoria</button>
+                    <button type="submit" class="btn btn-primary">Criar categoria</button>
                     </div>
                     </form>
             </div>
         </div>
     </div>
+@stop
+@section('js')
+    <script>
+        $(function () {
+            $('.select2').select2();
+        })
+    </script>
 @stop

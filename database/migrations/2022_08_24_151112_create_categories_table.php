@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->boolean('status')->default(true);
+            $table->foreignId('company_id')->constrained('companies');
             $table->timestamps();
         });
     }

@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Flasher\Prime\FlasherInterface;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Http\Requests\Category\CreateCategoryRequest;
 
 class CategoryController extends Controller
 {
     public function __construct()
     {
         $this->middleware('can:Ver Categorias')->only('index');
-        $this->middleware('can:Criar Categoria')->only('create', 'story');
+        $this->middleware('can:Criar Categorias')->only('create', 'story');
         $this->middleware('can:Editar Categorias')->only('edit', 'update');
         $this->middleware('can:Deletar Categorias')->only('delete');
     }
@@ -22,8 +24,8 @@ class CategoryController extends Controller
         if($request->ajax()){
             $categories = Category::select('categories.*');
             return DataTables::of($categories)
-            ->editColumn('created_at', function ($category) {
-                return $category->created_at->format('d/m/Y');
+            ->editColumn('company_id', function ($category) {
+                return $category->company->name;
             })
             ->editColumn('status', function ($category) {
                 return $category->status ? '<span class="badge bg-success">Ativa</span>' : '<span class="badge bg-warning">Inativa</span>';
@@ -37,10 +39,13 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('category.create');
+        $companies = Company::all();
+        return view('category.create',[
+            'companies' => $companies
+        ]);
     }
 
-    public function store(CategoryRequest $CategoryRequest,  FlasherInterface $flasher)
+    public function store(CreateCategoryRequest $CategoryRequest,  FlasherInterface $flasher)
     {
         $status = 0;
 
@@ -52,11 +57,12 @@ class CategoryController extends Controller
             Category::create([
                 'name' => $CategoryRequest->input('name'),
                 'description' => $CategoryRequest->input('description'),
+                'company_id' => $CategoryRequest->input('company_id'),
                 'status' => $status
             ]);
-            $flasher->addSuccess('Nova categoria adicionada', 'Sucesso');
+            $flasher->addSuccess('Nova categoria criada', 'Sucesso');
 
-            return redirect()->route('category.index');
+            return redirect()->route('categories.index');
 
         } catch (\Throwable $th) {
             $flasher->addError('Ocorreu um error', 'Erro');
@@ -66,10 +72,11 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view('category.edit', ['category' => $category]);
+        $companies = Company::all();
+        return view('category.edit', ['category' => $category, 'companies' => $companies]);
     }
 
-    public function update(Request $request, Category $category, FlasherInterface $flasher)
+    public function update(UpdateCategoryRequest $request, Category $category, FlasherInterface $flasher)
     {
         $status = 0;
 
@@ -79,12 +86,19 @@ class CategoryController extends Controller
 
         $category->update([
             'name' => $request->input('name'),
+            'category_id' => $request->input('category_id'),
             'description' => $request->input('description'),
             'status' => $status
         ]);
 
         $flasher->addSuccess('Categoria atualizada', 'Sucesso');
 
-        return back();
+        return redirect()->route('categories.edit', ['category' => $category->id]);
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return response()->json(['success' => 'sucesso']);
     }
 }

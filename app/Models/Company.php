@@ -15,4 +15,8 @@ class Company extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }
