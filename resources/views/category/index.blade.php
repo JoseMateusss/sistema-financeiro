@@ -8,12 +8,13 @@
 
 @section('content_header')
 <div class="d-flex">
-    <div class="col-10">
+    <div class="col-8">
         <h1 class="m-0 text-dark">Categorias</h1>
     </div>
-    <div class="col-2">
+    <div class="col-4 text-right">
         @can('Criar Categorias')
-            <a href="{{ route('categories.create') }}" class="btn btn-block btn-success">Nova Categoria</a>
+            <a href="{{ route('categories.create') }}" class="btn btn-warning"><i class="fas fa-folder mr-2"></i>Subcategorias</a>
+            <a href="{{ route('categories.create') }}" class="btn btn-success"><i class="fas fa-plus mr-2"></i>  Nova categoria</a>
         @endcan
     </div>
 </div>

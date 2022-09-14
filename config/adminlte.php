@@ -291,11 +291,7 @@ return [
                             'text' => 'Categorias',
                             'url'  => '/categories',
                             'can'  => 'Ver Categorias',
-                        ],
-                        [
-                            'text' => 'Subcategorias',
-                            'url'  => '#',
-                        ],
+                        ]
 
                     ],
                 ],
