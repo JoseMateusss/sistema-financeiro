@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\ChartAccountsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,7 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::get('/chart-accounts', ChartAccountsController::class);
 
 Auth::routes();
 
@@ -26,6 +29,7 @@ Auth::routes();
 Route::resource('/users', UserController::class);
 Route::patch('/users{user}', [UserController::class, 'changePassword'])->name('users.changepassword');
 Route::resource('/categories', CategoryController::class);
+Route::resource('/subcategories', SubcategoryController::class);
 Route::resource('/companies', CompanyController::class);
 
 

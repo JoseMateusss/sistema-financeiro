@@ -285,15 +285,7 @@ return [
             'submenu' => [
                 [
                     'text'    => 'Plano de contas',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Categorias',
-                            'url'  => '/categories',
-                            'can'  => 'Ver Categorias',
-                        ]
-
-                    ],
+                    'url'     => '/chart-accounts',
                 ],
             ],
         ],

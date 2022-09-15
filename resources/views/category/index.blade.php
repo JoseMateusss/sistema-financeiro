@@ -13,7 +13,7 @@
     </div>
     <div class="col-4 text-right">
         @can('Criar Categorias')
-            <a href="{{ route('categories.create') }}" class="btn btn-warning"><i class="fas fa-folder mr-2"></i>Subcategorias</a>
+            <a href="{{ route('subcategories.index') }}" class="btn btn-warning"><i class="fas fa-folder mr-2"></i>Subcategorias</a>
             <a href="{{ route('categories.create') }}" class="btn btn-success"><i class="fas fa-plus mr-2"></i>  Nova categoria</a>
         @endcan
     </div>
