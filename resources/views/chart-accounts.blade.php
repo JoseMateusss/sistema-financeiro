@@ -7,47 +7,37 @@
 @stop
 
 @section('content_header')
-<div class="d-flex">
-    <div class="col-8">
+<div class="d-flex align-items-center mb-3">
+    <div class="col-4">
         <h1 class="m-0 text-dark">Plano de contas</h1>
     </div>
-    <div class="col-4 text-right">
-            <a href="{{ route('categories.index') }}" class="btn btn-warning"><i class="fas fa-folder-open mr-2"></i>Categorias</a>
-            <a href="{{ route('subcategories.index') }}" class="btn btn-info"><i class="fas fa-folder mr-2"></i>Subcategorias</a>
+    <div class="col-8 text-right">
+        <a href="{{ route('categories.index') }}" class="btn btn-warning"><i class="fas fa-folder-open mr-2"></i>Categorias</a>
+        <a href="{{ route('subcategories.index') }}" class="btn btn-info"><i class="fas fa-folder mr-2"></i>Subcategorias</a>
     </div>
 </div>
 @stop
 
 @section('content')
 @foreach($companies as $company)
-    <div class="card card-primary card-outline">
+    <div class="card card-outline">
         <div class="card-body">
-            <h4>{{ $company->name }}</h4>
-            <div class="row">
-                <div class="col-5 col-sm-3">
-                    <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist"
-                        aria-orientation="vertical">
-                        @foreach($company->categories as $category)
-                            <a class="nav-link" id="vert-tabs-{{$category->id}}-tab" data-toggle="pill" href="#vert-tabs-{{$category->id}}" role="tab"
-                                aria-controls="vert-tabs-{{$category->id}}" aria-selected="false">{{ $category->name }}</a>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="col-7 col-sm-9">
-                    <div class="tab-content" id="vert-tabs-tabContent">
-                        @foreach($company->categories as $category)
-                            <div class="tab-pane fade" id="vert-tabs-{{$category->id}}" role="tabpanel"
-                                aria-labelledby="vert-tabs-{{$category->id}}-tab">
-                                @foreach($category->subcategories as $subcategory)
-                                    <div class="pb-3">
-                                        <a href="" class="" style="color:black; font-size:16px;"><i class="fas fa-plus mr-2"></i>{{$subcategory->name}} - {{$subcategory->description}}</a>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+            <div class="header d-flex justify-content-between align-items-center">
+                <h4>{{ $company->name }}</h4>
+                <a href="" class="btn btn-success"><i class="fas fa-download mr-2"></i>Exportar</a>
             </div>
+            <hr>
+            @foreach($company->categories as $category)
+                <ul>
+                    <li><h5>{{ $category->name }}</h5>
+                        <ul>
+                        @foreach($category->subcategories as $subcategory)
+                            <li><p class="lead">{{ $subcategory->name }}</p></li>
+                        @endforeach
+                        </ul>
+                    </li>
+                </ul>
+            @endforeach
         </div>
 
     </div>
