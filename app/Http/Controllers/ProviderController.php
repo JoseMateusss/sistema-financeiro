@@ -3,35 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Company;
-use App\Models\Subcategory;
-use App\Models\Category;
-use Yajra\DataTables\Facades\DataTables;
 
-class SubcategoryController extends Controller
+class ProviderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->ajax()){
-            $subcategories = Subcategory::select('subcategories.*');
-            return DataTables::of($subcategories)
-            ->editColumn('category_id', function ($subcategory) {
-                return $subcategory->category->name;
-            })
-            ->addColumn('actions', 'category.dataTable.action')
-            ->rawColumns(['actions'])
-            ->make(true);
-        }
-        
-        $companies = Company::all(); 
-        return view('subcategory.index', [
-            'companies' => $companies
-        ]);
+        //
     }
 
     /**
@@ -41,10 +23,7 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('subcategory.create',[
-            'categories' => $categories
-        ]);
+        //
     }
 
     /**
@@ -55,7 +34,7 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //
     }
 
     /**

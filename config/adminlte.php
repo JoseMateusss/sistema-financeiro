@@ -287,6 +287,10 @@ return [
                     'text'    => 'Plano de contas',
                     'url'     => '/chart-accounts',
                 ],
+                [
+                    'text'    => 'Fornecedores',
+                    'url'     => '/providers',
+                ],
             ],
         ],
 
@@ -469,5 +473,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
