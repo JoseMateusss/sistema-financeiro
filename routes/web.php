@@ -8,6 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ChartAccountsController;
+use App\Http\Controllers\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Auth::routes();
 
 
 Route::resource('/users', UserController::class);
+Route::resource('/providers', ProviderController::class);
 Route::patch('/users{user}', [UserController::class, 'changePassword'])->name('users.changepassword');
 Route::resource('/categories', CategoryController::class);
 Route::resource('/subcategories', SubcategoryController::class);

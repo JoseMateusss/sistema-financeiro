@@ -275,7 +275,7 @@ return [
         // Sidebar items:
         [
             'text' => 'Dashboard',
-            'icon' => 'fas fa-fw fa-chart-line',//<i class=""></i>
+            'icon' => 'fas fa-fw fa-chart-line',
             'url'  => '/'
         ],
 

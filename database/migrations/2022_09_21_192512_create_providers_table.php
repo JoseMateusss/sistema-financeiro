@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('cnpj');
+            $table->string('telephone');
+            $table->string('fantasy')->nullable();
+            $table->foreignId('company_id')->constrained('companies');
+            $table->foreignId('subcategory_id')->constrained('subcategories');
             $table->timestamps();
         });
     }
